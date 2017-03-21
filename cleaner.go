@@ -27,6 +27,8 @@ func (c Cleaner) CleanUp() error {
 		log.Printf("Failed to connect to docker client! \n %v\n", err)
 	}
 
+	var SpaceReclaimed uint64
+
 	switch {
 	case c.stoppedContainers:
 		// status=exited
@@ -40,7 +42,7 @@ func (c Cleaner) CleanUp() error {
 		for _, containerID := range report.ContainersDeleted {
 			log.Printf("%v\n", containerID)
 		}
-		fmt.Printf("Total reclaimed space: %v", units.HumanSize(float64(report.SpaceReclaimed)))
+		SpaceReclaimed += report.SpaceReclaimed
 
 	case c.unUsedImages:
 		// dangling=true
@@ -53,7 +55,7 @@ func (c Cleaner) CleanUp() error {
 		for _, image := range report.ImagesDeleted {
 			log.Printf("%+v", image)
 		}
-		fmt.Printf("Total reclaimed space: %v", units.HumanSize(float64(report.SpaceReclaimed)))
+		SpaceReclaimed += report.SpaceReclaimed
 
 	case c.unUsedVolumes:
 		pruneFilter := filters.NewArgs()
@@ -64,8 +66,9 @@ func (c Cleaner) CleanUp() error {
 		for _, volume := range report.VolumesDeleted {
 			log.Printf("%+v", volume)
 		}
-
-		fmt.Printf("Total reclaimed space: %v", units.HumanSize(float64(report.SpaceReclaimed)))
+		SpaceReclaimed += report.SpaceReclaimed
 	}
+
+	fmt.Printf("Total reclaimed space: %v", units.HumanSize(float64(SpaceReclaimed)))
 	return nil
 }
