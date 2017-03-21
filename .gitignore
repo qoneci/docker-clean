@@ -1,0 +1,5 @@
+docker-clean
+docker-clean_*
+.vagrant
+*.log
+vendor
