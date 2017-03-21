@@ -64,10 +64,11 @@ func main() {
 		os.Exit(1)
 	}
 	if *args.demon {
+		fmt.Println("Starting in demon mode")
 		interval := setInterval(args)
 		for {
 			var sleepTime = time.Duration(interval) * time.Second
-			fmt.Printf("Will sleep for: %v nanoseconds", sleepTime)
+			fmt.Printf("Will sleep for: %v\n", sleepTime)
 			time.Sleep(sleepTime)
 			runCleaner(args)
 		}
