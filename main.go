@@ -11,7 +11,7 @@ import (
 var Version = "not set"
 
 func main() {
-	version := kingpin.Flag("version", "Show Version").Short('v').Bool()
+	version := kingpin.Flag("version", "Show Version").Bool()
 	all := kingpin.Flag("all", "Prune all container/images/volumes not used").Short('a').Bool()
 	containers := kingpin.Flag("containers", "Prune all container not used").Short('c').Bool()
 	images := kingpin.Flag("images", "Prune all images not used").Short('i').Bool()
