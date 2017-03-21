@@ -1,6 +1,6 @@
 # docker-clean
 
-Why? For fun, and to allow you to have a small process that runs the docker cleanup of un used images/containers/volumes on interval as a demon on a interval. Written in Go using the native docker api/lib 
+Why? For fun, and to allow you to have a small process that runs the docker cleanup of un used images/containers/volumes on interval. Written in Go using the native docker api/lib 
 
 tested with golang 1.8
 
