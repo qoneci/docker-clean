@@ -31,7 +31,8 @@ func runCleaner(a Args) {
 	}
 	err := cleaner.CleanUp()
 	if err != nil {
-		fmt.Printf("%v\n", err)
+		fmt.Printf("%s%v %s\n", lightRedColor, err, noColor)
+		os.Exit(1)
 	}
 }
 

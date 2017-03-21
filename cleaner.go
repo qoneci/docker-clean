@@ -12,6 +12,7 @@ import (
 const (
 	noColor        = "\033[0m"
 	lightBlueColor = "\033[1;34m"
+	lightRedColor  = "\033[1;31m"
 )
 
 // Cleaner struct
