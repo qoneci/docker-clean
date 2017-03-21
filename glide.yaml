@@ -1,4 +1,4 @@
-package: github.com/mad01/docker-clean
+package: github.com/qoneci/docker-clean
 import:
 - package: github.com/docker/docker
   version: ~17.3.1-ce-rc1
