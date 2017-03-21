@@ -10,6 +10,11 @@ import (
 	units "github.com/docker/go-units"
 )
 
+const (
+	noColor        = "\033[0m"
+	lightBlueColor = "\033[1;34m"
+)
+
 // Cleaner struct
 type Cleaner struct {
 	stoppedContainers bool
@@ -39,7 +44,7 @@ func (c Cleaner) CleanUp() error {
 			os.Exit(1)
 		}
 		if len(report.ContainersDeleted) >= 1 {
-			fmt.Println("Removing containers")
+			fmt.Printf("%sRemoving containers %s\n", lightBlueColor, noColor)
 		}
 		for _, containerID := range report.ContainersDeleted {
 			fmt.Printf("%v\n", containerID[:10])
@@ -56,7 +61,7 @@ func (c Cleaner) CleanUp() error {
 			os.Exit(1)
 		}
 		if len(report.ImagesDeleted) >= 1 {
-			fmt.Println("Removing un used images")
+			fmt.Printf("%sRemoving un used images %s\n", lightBlueColor, noColor)
 		}
 		for _, image := range report.ImagesDeleted {
 			fmt.Printf("%+v\n", image)
@@ -72,7 +77,7 @@ func (c Cleaner) CleanUp() error {
 			os.Exit(1)
 		}
 		if len(report.VolumesDeleted) >= 1 {
-			fmt.Println("Removing un used volumes")
+			fmt.Printf("%sRemoving un used volumes %s\n", lightBlueColor, noColor)
 		}
 
 		for _, volume := range report.VolumesDeleted {
