@@ -31,6 +31,7 @@ func (c Cleaner) CleanUp() error {
 	if err != nil {
 		return fmt.Errorf("Failed to connect to docker client! %v", err)
 	}
+	defer cli.Close()
 
 	var SpaceReclaimed uint64
 	SpaceReclaimed = 0
