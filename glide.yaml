@@ -1,0 +1,11 @@
+package: github.com/mad01/docker-clean
+import:
+- package: github.com/docker/docker
+  version: ~17.3.1-ce-rc1
+  subpackages:
+  - api/types/filters
+  - client
+- package: github.com/docker/go-units
+  version: ~0.3.1
+- package: gopkg.in/alecthomas/kingpin.v2
+  version: ~2.2.3
