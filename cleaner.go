@@ -3,7 +3,6 @@ package main
 import (
 	"context"
 	"fmt"
-	"os"
 
 	"github.com/docker/docker/api/types/filters"
 	"github.com/docker/docker/client"
@@ -29,7 +28,7 @@ type Cleaner struct {
 func (c Cleaner) CleanUp() error {
 	cli, err := client.NewEnvClient()
 	if err != nil {
-		fmt.Printf("Failed to connect to docker client! \n %v\n", err)
+		return fmt.Errorf("Failed to connect to docker client! %v", err)
 	}
 
 	var SpaceReclaimed uint64
@@ -40,8 +39,7 @@ func (c Cleaner) CleanUp() error {
 		pruneFilter.Add("status", "exited")
 		report, err := cli.ContainersPrune(context.Background(), pruneFilter)
 		if err != nil {
-			fmt.Printf("%v\n", err)
-			os.Exit(1)
+			return fmt.Errorf("%v", err)
 		}
 		if len(report.ContainersDeleted) >= 1 {
 			fmt.Printf("%sRemoving containers %s\n", lightBlueColor, noColor)
@@ -57,8 +55,7 @@ func (c Cleaner) CleanUp() error {
 		pruneFilter.Add("dangling", "false")
 		report, err := cli.ImagesPrune(context.Background(), pruneFilter)
 		if err != nil {
-			fmt.Printf("%v\n", err)
-			os.Exit(1)
+			return fmt.Errorf("%v", err)
 		}
 		if len(report.ImagesDeleted) >= 1 {
 			fmt.Printf("%sRemoving un used images %s\n", lightBlueColor, noColor)
@@ -73,8 +70,7 @@ func (c Cleaner) CleanUp() error {
 		pruneFilter := filters.NewArgs()
 		report, err := cli.VolumesPrune(context.Background(), pruneFilter)
 		if err != nil {
-			fmt.Printf("%v\n", err)
-			os.Exit(1)
+			return fmt.Errorf("%v", err)
 		}
 		if len(report.VolumesDeleted) >= 1 {
 			fmt.Printf("%sRemoving un used volumes %s\n", lightBlueColor, noColor)
