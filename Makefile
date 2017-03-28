@@ -7,3 +7,6 @@ build:
 
 clean:
 	@rm docker-clean*
+
+install:
+	go install -ldflags "-X main.Version=$(VERSION)"
